@@ -63,7 +63,7 @@ app.post('/api/coords', function(req, res){
     .header("Accept", "text/plain")
   .end(function(result){
     //console.log(result.status, result.headers.activities, result.body, result.body.activities);
-    console.log(result.body);
+    //console.log(result.body);
     //if there are actually hikes in that area
     if(result.body.places){
       var coordinates = result.body.places.map(function(el){
@@ -78,17 +78,28 @@ app.post('/api/coords', function(req, res){
     } else {
       res.sendStatus(404);
     }
-  });
+  });  
 });
 
- app.get('api/trailinfo', function(req, res) {
-      unirest.get("https://trailapi-trailapi.p.mashape.com/?lat=34.1&limit=25&lon=-105.2&q[activities_activity_name_cont]=Yellow+River+Trail&q[activities_activity_type_name_eq]=hiking&q[city_cont]=Denver&q[country_cont]=Australia&q[state_cont]=California&radius=25")
-    .header("X-Mashape-Key", process.env.TRAIL_API_KEY)
-    .header("Accept", "text/plain")
-    .end(function (result) {
-      console.log(result.status, result.headers, result.body);
-      res.send("This is Bob.");
-    });
+ app.get('/api/trailinfo', function(req, res) {
+  //need lat, lon of specific trail going in...
+  //so does need to be a post request?
+    unirest.get("https://trailapi-trailapi.p.mashape.com/")
+      .header("X-Mashape-Key", process.env.TRAIL_API_KEY)
+      .header("Accept", "text/plain")
+      .end(function (result) {
+        //console.log(result.status, result.headers, result.body);
+        if(result.body.places){
+          var data = result.body.places[0].city;
+          console.log("this is bob " + data);
+          res.send(data);
+        } else {
+          console.log("You've hit this error");
+          res.sendStatus(404)
+        }
+      });
+    // console.log("hi");
+    // res.send();
  });
 
 exports.port = port;

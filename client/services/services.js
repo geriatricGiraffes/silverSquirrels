@@ -85,11 +85,10 @@ angular.module('hikexpert.services', [])
   var getInfo = function() {
    return $http({
       method: 'GET',
-      url: 'api/trailinfo',
-      data: user
+      url: 'api/trailinfo'
     })
-    .then(function(resp) {
-      return resp.data.token;
+    .then(function(res) {
+      return res.data;
     });
   };
   return {

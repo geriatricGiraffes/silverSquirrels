@@ -1,5 +1,5 @@
-angular.module('hikexpert.home', [])
-.controller('HomePageController', function($scope, $rootScope, Home){
+angular.module('hikexpert.home', ['hikexpert.services'])
+.controller('HomePageController', function($scope, $rootScope, Home, Info){
   $scope.userInfo = {}; 
   $scope.loading = true;
   $scope.getting_markers = false;
