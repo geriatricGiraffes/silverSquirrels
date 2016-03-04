@@ -113,7 +113,8 @@ angular.module('hikexpert.home', [])
             // If it is in the haveDone array, makes its class 'want-to', gives it the greenIcon, and gives option 'I want to hike again'
             if ( $scope.userInfo.haveDone.indexOf(trail.name) > -1 ) {
               marker = L.marker(trail.coordinates, {icon: $scope.greenIcon})
-                .bindPopup('<b>'+trail.name+'</b><br /><a class="want-to">I want to hike this again<span class="hidden">'+trail.name+'</span></a><br /><a href="/#/info" class="get-info">Click for more info</a>').addTo($scope.map).openPopup();
+                .bindPopup('<b>'+trail.name+'</b><br /><a class="want-to">I want to hike this again<span class="hidden">'+
+                  trail.name+'</span></a><br /><a href="/#/info" class="get-info">Click for more info</a>').addTo($scope.map).openPopup();
               // L.marker will not take more than two parameters ... !?
               // So title is set here:
               marker.options.title = trail.name;
@@ -122,7 +123,8 @@ angular.module('hikexpert.home', [])
             // If it is in BOTH arrays, this sets the icon to yellow so they can say they have hiked it (again)
             if ( $scope.userInfo.wantToDo.indexOf(trail.name) > -1 ) {
               marker = L.marker(trail.coordinates, {icon: yellowIcon})
-                .bindPopup('<b>'+trail.name+'</b><br /><a class="have">I have hiked this<span class="hidden">'+trail.name+'</span></a><br /><a href="/#/info" class="get-info">Click for more info</a>').addTo($scope.map).openPopup();
+                .bindPopup('<b>'+trail.name+'</b><br /><a class="have">I have hiked this<span class="hidden">'+
+                  trail.name+'</span></a><br /><a href="/#/info" class="get-info">Click for more info</a>').addTo($scope.map).openPopup();
               // L.marker will not take more than two parameters ... !?
               // So title is set here:
               marker.options.title = trail.name;

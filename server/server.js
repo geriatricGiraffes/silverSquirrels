@@ -63,6 +63,7 @@ app.post('/api/coords', function(req, res){
     .header("Accept", "text/plain")
   .end(function(result){
     //console.log(result.status, result.headers.activities, result.body, result.body.activities);
+    console.log(result.body);
     //if there are actually hikes in that area
     if(result.body.places){
       var coordinates = result.body.places.map(function(el){
