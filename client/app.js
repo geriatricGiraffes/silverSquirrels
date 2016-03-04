@@ -3,6 +3,7 @@ angular.module('hikexpert', [
   'hikexpert.auth',
   'ngRoute',
   'hikexpert.services',
+  //'hikexpert.info',
   'leaflet-directive'
 ])
 .config(function($routeProvider, $httpProvider){
@@ -24,6 +25,10 @@ angular.module('hikexpert', [
     .when('/signup', {
       templateUrl: 'auth/signup.html',
       controller: 'AuthController'
+    })
+    .when('/info', {
+      templateUrl: 'infoPage/infoPage.html',
+      controller: 'InfoPageController'
     })
     .when('/aboutTeam', {
       templateUrl: 'about/aboutTeam.html'
