@@ -78,6 +78,21 @@ angular.module('hikexpert.services', [])
     isAuth : isAuth,
     signout : signout
   };
-});
+})
 
 //TODO: service for shared trial information
+.factory('Info', function($http) {
+  var getInfo = function() {
+   return $http({
+      method: 'GET',
+      url: 'api/trailinfo',
+      data: user
+    })
+    .then(function(resp) {
+      return resp.data.token;
+    });
+  };
+  return {
+    getInfo: getInfo
+  }
+});

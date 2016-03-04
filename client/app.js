@@ -3,7 +3,7 @@ angular.module('hikexpert', [
   'hikexpert.auth',
   'ngRoute',
   'hikexpert.services',
-  //'hikexpert.info',
+  'hikexpert.info',
   'leaflet-directive'
 ])
 .config(function($routeProvider, $httpProvider){
