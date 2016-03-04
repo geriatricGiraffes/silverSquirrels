@@ -113,7 +113,7 @@ angular.module('hikexpert.home', [])
             // If it is in the haveDone array, makes its class 'want-to', gives it the greenIcon, and gives option 'I want to hike again'
             if ( $scope.userInfo.haveDone.indexOf(trail.name) > -1 ) {
               marker = L.marker(trail.coordinates, {icon: $scope.greenIcon})
-                .bindPopup('<b>'+trail.name+'</b><br /><a class="want-to">I want to hike this again<span class="hidden">'+trail.name+'</span></a>').addTo($scope.map).openPopup();
+                .bindPopup('<b>'+trail.name+'</b><br /><a class="want-to">I want to hike this again<span class="hidden">'+trail.name+'</span></a><br /><a class="get-info">Click for more info</a>').addTo($scope.map).openPopup();
               // L.marker will not take more than two parameters ... !?
               // So title is set here:
               marker.options.title = trail.name;
@@ -122,7 +122,7 @@ angular.module('hikexpert.home', [])
             // If it is in BOTH arrays, this sets the icon to yellow so they can say they have hiked it (again)
             if ( $scope.userInfo.wantToDo.indexOf(trail.name) > -1 ) {
               marker = L.marker(trail.coordinates, {icon: yellowIcon})
-                .bindPopup('<b>'+trail.name+'</b><br /><a class="have">I have hiked this<span class="hidden">'+trail.name+'</span>').addTo($scope.map).openPopup();
+                .bindPopup('<b>'+trail.name+'</b><br /><a class="have">I have hiked this<span class="hidden">'+trail.name+'</span></a><br /><a class="get-info">Click for more info</a>').addTo($scope.map).openPopup();
               // L.marker will not take more than two parameters ... !?
               // So title is set here:
               marker.options.title = trail.name;
@@ -132,7 +132,9 @@ angular.module('hikexpert.home', [])
             if ( $scope.userInfo.wantToDo.indexOf(trail.name) === -1 && $scope.userInfo.haveDone.indexOf(trail.name) === -1) {
               marker = L.marker(trail.coordinates, {title: trail.name})
               // This is part of an ugly jQuery hack. Hidden spans contain the name of the trail, so we can get at that later. Undoubtedly, there is a better way to do this.
-                .bindPopup('<b>'+trail.name+'</b><br /><a class="have">I have hiked this<span class="hidden">'+trail.name+'</span></a><br /><a class="want-to">I want to hike this<span class="hidden">'+trail.name+'</span></a>').addTo($scope.map);
+                .bindPopup('<b>'+trail.name+'</b><br /><a class="have">I have hiked this<span class="hidden">'+ 
+                  trail.name+'</span></a><br /><a class="want-to">I want to hike this<span class="hidden">'+ 
+                  trail.name+'</span></a><br /><a class="get-info">Click for more info</a>').addTo($scope.map);
             }
             // Store all the markers in our own array here so we can do work on it later:
             $scope.markers.push(marker);
