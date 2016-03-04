@@ -79,3 +79,5 @@ angular.module('hikexpert.services', [])
     signout : signout
   };
 });
+
+//TODO: service for shared trial information
