@@ -25,6 +25,10 @@ angular.module('hikexpert', [
       templateUrl: 'auth/signup.html',
       controller: 'AuthController'
     })
+    .when('/info', {
+      templateUrl: 'infoPage/infoPage.html',
+      controller: 'InfoPageController'
+    })
     .when('/aboutTeam', {
       templateUrl: 'about/aboutTeam.html'
     });
