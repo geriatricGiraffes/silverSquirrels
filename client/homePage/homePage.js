@@ -115,7 +115,7 @@ angular.module('hikexpert.home', ['hikexpert.services'])
               marker = L.marker(trail.coordinates, {icon: $scope.greenIcon})
                 .bindPopup('<b>'+trail.name+'</b><br /><a class="want-to">I want to hike this again<span class="hidden">'+
                   trail.name+'</span></a><br /><a href="/#/info" class="get-info">Click for more info<span class="hidden">'+
-                  trail.coordinates+'</span></a>').addTo($scope.map).openPopup();
+                  trail.coordinates + "," + trail.name+'</span></a>').addTo($scope.map).openPopup();
               // L.marker will not take more than two parameters ... !?
               // So title is set here:
               marker.options.title = trail.name;
@@ -130,7 +130,7 @@ angular.module('hikexpert.home', ['hikexpert.services'])
               marker = L.marker(trail.coordinates, {icon: yellowIcon})
                 .bindPopup('<b>'+trail.name+'</b><br /><a class="have">I have hiked this<span class="hidden">'+
                   trail.name+'</span></a><br /><a href="/#/info" class="get-info">Click for more info<span class="hidden">'+
-                  trail.coordinates+'</span></a>').addTo($scope.map).openPopup();
+                  trail.coordinates + "," + trail.name+'</span></a>').addTo($scope.map).openPopup();
               // L.marker will not take more than two parameters ... !?
               // So title is set here:
               marker.options.title = trail.name;
@@ -145,7 +145,7 @@ angular.module('hikexpert.home', ['hikexpert.services'])
                 .bindPopup('<b>'+trail.name+'</b><br /><a class="have">I have hiked this<span class="hidden">'+ 
                   trail.name+'</span></a><br /><a class="want-to">I want to hike this<span class="hidden">'+ 
                   trail.name+'</span></a><br /><a href="/#/info" class="get-info">Click for more info<span class="hidden">'+
-                  trail.coordinates+'</span></a>').addTo($scope.map);
+                  trail.coordinates + "," + trail.name+'</span></a>').addTo($scope.map);
               marker.options.className = 'marker';
               //console.log("This is the marker: " + marker);
             }
@@ -214,6 +214,7 @@ angular.module('hikexpert.home', ['hikexpert.services'])
     //var trailName = $(this).children().html();
     console.log("Inside click handler");
     var latlng = $(this).children().html();
+    console.log("This is what latlng looks like now: " + latlng);
     var info = latlng.split(',');
     console.log(info);
     InfoStorage.setData(info);

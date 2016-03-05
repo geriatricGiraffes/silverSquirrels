@@ -83,38 +83,47 @@ app.post('/api/coords', function(req, res){
  app.post('/api/trailinfo', function(req, res) {
     var lat = req.body.lat;
     var lng = req.body.lng;
-    console.log("right here " + lat + lng + Object.keys(req.body));
-    unirest.get("https://trailapi-trailapi.p.mashape.com/?lat="+lat+"&limit=1&lon="+lng+"&q[activities_activity_type_name_eq]=hiking")
+    var name = req.body.name;
+    unirest.get("https://trailapi-trailapi.p.mashape.com/?lat="+lat+"&limit=10&lon="+lng+"&q[activities_activity_type_name_eq]=hiking")
       .header("X-Mashape-Key", process.env.TRAIL_API_KEY)
       .header("Accept", "text/plain")
       .end(function (result) {
         //console.log(result.status, result.headers, result.body);
         var directions;
         var description;
-        if(result.body.places){
-          //first, loop through places and find index of the one there the name matches the trail name
-          //save index, and continue: 
-          
-          // Directions
-          if(result.body.places[0].directions){
-            directions = result.body.places[0].directions;
-          } else {
-            directions = "No directions yet.";
-          }
-          // Description
-          if(result.body.places[0].description){
-            description = result.body.places[0].description;
-          } else {
-            description = "No description yet.";
-          }
+        //Info from server is an array of places
+        var placesArr = result.body.places;
+        if(placesArr){
+          //First, loop through places and find index of the one there the name matches the trail name
+          //Save index, and continue to get all the info you want from the API 
+          var foundIndex;
+          placesArr.forEach(function(place, i){
+            if(name === placesArr[i].name){
+              foundIndex = i;
+              // Directions
+              if(placesArr[foundIndex].directions){
+                directions = result.body.places[foundIndex].directions;
+              } else {
+                directions = "No directions yet.";
+              }
+              // Description
+              if(placesArr[foundIndex].description){
+                description = result.body.places[foundIndex].description;
+              } else {
+                description = "No description yet.";
+              }  
+            }
+          });
+
           // Data packaged for user
           var dataForUser = {
-            name: result.body.places[0].name,
+            name: name,
             directions: directions,
             description: description
           };
-          console.log("this is bob " + dataForUser.name + " " + dataForUser.directions + " " + dataForUser.description);
+
           res.send(dataForUser);
+  
         } else {
           console.log("You've hit an error when trying to send data back from API.");
           res.sendStatus(404)
