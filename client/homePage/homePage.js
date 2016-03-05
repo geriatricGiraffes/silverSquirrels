@@ -229,7 +229,16 @@ angular.module('hikexpert.home', ['hikexpert.services'])
     //   lat: lat,
     //   lng: lng
     // };
-    Info.getInfo(info);
+    Info.getInfo(info).then(function(data2) {
+      if(data2){
+        console.log("Sucessfully got data: " + data2.name);
+        console.log(data2.directions);
+        console.log(data2.description);
+      }
+    }, function(error) {
+        console.log("Couldn't get anything");
+      }
+    );
   });
 
   ///////////// Helpers //////////////

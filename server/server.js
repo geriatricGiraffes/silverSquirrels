@@ -93,7 +93,7 @@ app.post('/api/coords', function(req, res){
       .end(function (result) {
         //console.log(result.status, result.headers, result.body);
         console.log("Here");
-        console.log(result.body);
+        //console.log(result.body);
         var directions;
         var description;
         if(result.body.places){
@@ -105,9 +105,9 @@ app.post('/api/coords', function(req, res){
           }
           // Description
           if(result.body.places[0].description){
-            directions = result.body.places[0].description;
+            description = result.body.places[0].description;
           } else {
-            directions = "No description yet.";
+            description = "No description yet.";
           }
           // Data packaged for user
           var dataForUser = {
@@ -115,17 +115,13 @@ app.post('/api/coords', function(req, res){
             directions: directions,
             description: description
           };
-          //var data = result.body.places[0].city;
-          //var data = result.body.places[0].name;
-          console.log("this is bob ");
+          console.log("this is bob " + dataForUser.name + " " + dataForUser.directions + " " + dataForUser.description);
           res.send(dataForUser);
         } else {
           console.log("You've hit this error");
           res.sendStatus(404)
         }
       });
-    // console.log("hi");
-    // res.send();
  });
 
 exports.port = port;
