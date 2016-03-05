@@ -86,16 +86,39 @@ app.post('/api/coords', function(req, res){
   //so does need to be a post request?
     var lat = req.body.lat;
     var long = req.body.lng;
+    console.log("right here");
     unirest.get("https://trailapi-trailapi.p.mashape.com/?lat="+lat+"&limit=1&lon="+long+"&q[activities_activity_type_name_eq]=hiking")
       .header("X-Mashape-Key", process.env.TRAIL_API_KEY)
       .header("Accept", "text/plain")
       .end(function (result) {
         //console.log(result.status, result.headers, result.body);
+        console.log("Here");
+        console.log(result.body);
+        var directions;
+        var description;
         if(result.body.places){
+          // Directions
+          if(result.body.places[0].directions){
+            directions = result.body.places[0].directions;
+          } else {
+            directions = "No directions yet.";
+          }
+          // Description
+          if(result.body.places[0].description){
+            directions = result.body.places[0].description;
+          } else {
+            directions = "No description yet.";
+          }
+          // Data packaged for user
+          var dataForUser = {
+            name: result.body.places[0].name,
+            directions: directions,
+            description: description
+          };
           //var data = result.body.places[0].city;
-          var data = result.body.places[0].name;
-          console.log("this is bob " + data);
-          res.send(data);
+          //var data = result.body.places[0].name;
+          console.log("this is bob ");
+          res.send(dataForUser);
         } else {
           console.log("You've hit this error");
           res.sendStatus(404)

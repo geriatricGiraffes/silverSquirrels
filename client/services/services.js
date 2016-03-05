@@ -84,23 +84,24 @@ angular.module('hikexpert.services', [])
 .factory('Info', function($http) {
   var getInfo = function(info) {
     //if info is not undefined....
-    while(info){
+    //while(info){
       console.log("inside factory " + info);
-      console.log(Object.keys(info));
-    var lat = info["0"];
-    var lng = info["1"];
+      //console.log(Object.keys(info));
+    var lat = info[0];
+    var lng = info[1];
     var infoForServer = {
       lat: lat,
       lng: lng
     };
     console.log(infoForServer);
-    }
+   // }
    return $http({
       method: 'POST',
       url: 'api/trailinfo',
       data: infoForServer
     })
     .then(function(res) {
+      console.log("still in factory");
       return res.data;
     });
   };

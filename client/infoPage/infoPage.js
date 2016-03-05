@@ -18,5 +18,5 @@ angular.module('hikexpert.info', ['hikexpert.services'])
     );
  };
 
- $scope.getInfo();
+ //$scope.getInfo();
 });
