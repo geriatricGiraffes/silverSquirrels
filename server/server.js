@@ -63,7 +63,6 @@ app.post('/api/coords', function(req, res){
     .header("Accept", "text/plain")
   .end(function(result){
     //console.log(result.status, result.headers.activities, result.body, result.body.activities);
-    //console.log(result.body);
     //if there are actually hikes in that area
     if(result.body.places){
       var coordinates = result.body.places.map(function(el){
@@ -82,8 +81,6 @@ app.post('/api/coords', function(req, res){
 });
 
  app.post('/api/trailinfo', function(req, res) {
-  //need lat, lon of specific trail going in...
-  //so does need to be a post request?
     var lat = req.body.lat;
     var lng = req.body.lng;
     console.log("right here " + lat + lng + Object.keys(req.body));
@@ -92,11 +89,12 @@ app.post('/api/coords', function(req, res){
       .header("Accept", "text/plain")
       .end(function (result) {
         //console.log(result.status, result.headers, result.body);
-        console.log("Here");
-        //console.log(result.body);
         var directions;
         var description;
         if(result.body.places){
+          //first, loop through places and find index of the one there the name matches the trail name
+          //save index, and continue: 
+          
           // Directions
           if(result.body.places[0].directions){
             directions = result.body.places[0].directions;
@@ -118,7 +116,7 @@ app.post('/api/coords', function(req, res){
           console.log("this is bob " + dataForUser.name + " " + dataForUser.directions + " " + dataForUser.description);
           res.send(dataForUser);
         } else {
-          console.log("You've hit this error");
+          console.log("You've hit an error when trying to send data back from API.");
           res.sendStatus(404)
         }
       });

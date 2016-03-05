@@ -80,7 +80,6 @@ angular.module('hikexpert.services', [])
   };
 })
 
-//TODO: service for shared trial information
 .factory('Info', function($http) {
   var getInfo = function(info) {
     return $http({
@@ -88,11 +87,13 @@ angular.module('hikexpert.services', [])
       url: 'api/trailinfo',
       data: info
     })
+    
     .then(function(res) {
       console.log("still in factory");
       return res.data;
     });
   };
+
   return {
     getInfo: getInfo 
   };
@@ -106,19 +107,16 @@ angular.module('hikexpert.services', [])
           delete packagedInfo[key];
         }
       };
+
     return {
       setData: function(info) {
-        console.log("before delete :" + packagedInfo);
         clearData();
-        console.log("after delete :" + packagedInfo);
         packagedInfo['lat'] = info[0];
         packagedInfo['lng'] = info[1];
-        console.log(packagedInfo);
       },
       getData: function() { 
         return packagedInfo;
-      }
-      
+      }    
     }
 });
 
