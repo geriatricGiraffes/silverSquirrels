@@ -97,8 +97,8 @@ app.post('/api/coords', function(req, res){
         //Info from server is an array of places
         var placesArr = result.body.places;
         if(placesArr){
-          //First, loop through places and find index of the one there the name matches the trail name
-          //Save index, and continue to get all the info you want from the API 
+          // First, loop through places and find index of the one there the name matches the trail name
+          // Save index, and continue to get all the info you want from the API 
           var foundIndex;
           placesArr.forEach(function(place, i){
             if(name === placesArr[i].name){

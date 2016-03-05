@@ -89,7 +89,6 @@ angular.module('hikexpert.services', [])
     })
 
     .then(function(res) {
-      console.log("still in factory");
       return res.data;
     });
   };
@@ -100,17 +99,11 @@ angular.module('hikexpert.services', [])
 })
 
 .factory('InfoStorage', function(){
+    // Going to package info for server in object
     var packagedInfo = {};
-
-    var clearData = function() {
-        for(var key in packagedInfo){
-          delete packagedInfo[key];
-        }
-      };
 
     return {
       setData: function(info) {
-        clearData();
         packagedInfo['lat'] = info[0];
         packagedInfo['lng'] = info[1];
         packagedInfo['name'] = info[2]

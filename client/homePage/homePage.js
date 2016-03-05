@@ -211,14 +211,11 @@ angular.module('hikexpert.home', ['hikexpert.services'])
   });
 
   $('body').on('click', '.get-info', function(e){
-    //var trailName = $(this).children().html();
-    console.log("Inside click handler");
+    // This gets the trail coordinates and the trail name out of the hidden span
     var latlng = $(this).children().html();
-    console.log("This is what latlng looks like now: " + latlng);
     var info = latlng.split(',');
-    console.log(info);
+    // Send array of info to be set in InfoStorage factory so can pass to Info Page Controller
     InfoStorage.setData(info);
-
   });
 
   ///////////// Helpers //////////////
