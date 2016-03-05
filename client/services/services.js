@@ -78,6 +78,39 @@ angular.module('hikexpert.services', [])
     isAuth : isAuth,
     signout : signout
   };
+})
+
+.factory('Info', function($http) {
+  var getInfo = function(info) {
+    return $http({
+      method: 'POST',
+      url: 'api/trailinfo',
+      data: info
+    })
+
+    .then(function(res) {
+      return res.data;
+    });
+  };
+
+  return {
+    getInfo: getInfo 
+  };
+})
+
+.factory('InfoStorage', function(){
+    // Going to package info for server in object
+    var packagedInfo = {};
+
+    return {
+      setData: function(info) {
+        packagedInfo['lat'] = info[0];
+        packagedInfo['lng'] = info[1];
+        packagedInfo['name'] = info[2]
+      },
+      getData: function() { 
+        return packagedInfo;
+      }    
+    }
 });
 
-//TODO: service for shared trial information
