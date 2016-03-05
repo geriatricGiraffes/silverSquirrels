@@ -186,9 +186,7 @@ angular.module('hikexpert.home', ['hikexpert.services'])
     $scope.moveTrail(trailName, '/moveTrails');
     // Re-render new information, wait a bit to make sure DB is done saving:
     // moveTrail will call getUser, so following line is probably unnecessary and left commented out:
-    //$scope.getUser();
-    
-    
+    //$scope.getUser();  
   });
 
   $('body').on('click', '.want-to', function(){
@@ -200,6 +198,18 @@ angular.module('hikexpert.home', ['hikexpert.services'])
       $scope.getUser();
     }, 400);
   });
+
+  // $('body').on('click', '.get-info', function(e){
+  //   var trailName = $(this).children().html();
+  //   var lat = e.latLng.lat;
+  //   var lng = e.latLng.lng;
+  //   var info = {
+  //     trailName: trailName,
+  //     lat: lat,
+  //     lng: lng
+  //   };
+  //   $scope.getInfo(info);
+  // });
 
   ///////////// Helpers //////////////
   $scope.changeColor = function (trailName, icon, intent) {

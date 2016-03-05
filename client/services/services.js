@@ -83,9 +83,14 @@ angular.module('hikexpert.services', [])
 //TODO: service for shared trial information
 .factory('Info', function($http) {
   var getInfo = function() {
+    var info = {
+      lat: 40.77,
+      lng: -73.9
+    };
    return $http({
-      method: 'GET',
-      url: 'api/trailinfo'
+      method: 'POST',
+      url: 'api/trailinfo',
+      data: info
     })
     .then(function(res) {
       return res.data;
@@ -95,3 +100,19 @@ angular.module('hikexpert.services', [])
     getInfo: getInfo
   }
 });
+
+
+// .factory('Info', function($http) {
+//   var getInfo = function() {
+//    return $http({
+//       method: 'GET',
+//       url: 'api/trailinfo'
+//     })
+//     .then(function(res) {
+//       return res.data;
+//     });
+//   };
+//   return {
+//     getInfo: getInfo
+//   }
+// });

@@ -81,16 +81,19 @@ app.post('/api/coords', function(req, res){
   });  
 });
 
- app.get('/api/trailinfo', function(req, res) {
+ app.post('/api/trailinfo', function(req, res) {
   //need lat, lon of specific trail going in...
   //so does need to be a post request?
-    unirest.get("https://trailapi-trailapi.p.mashape.com/")
+    var lat = req.body.lat;
+    var long = req.body.lng;
+    unirest.get("https://trailapi-trailapi.p.mashape.com/?lat="+lat+"&limit=1&lon="+long+"&q[activities_activity_type_name_eq]=hiking")
       .header("X-Mashape-Key", process.env.TRAIL_API_KEY)
       .header("Accept", "text/plain")
       .end(function (result) {
         //console.log(result.status, result.headers, result.body);
         if(result.body.places){
-          var data = result.body.places[0].city;
+          //var data = result.body.places[0].city;
+          var data = result.body.places[0].name;
           console.log("this is bob " + data);
           res.send(data);
         } else {
