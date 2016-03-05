@@ -135,7 +135,7 @@ angular.module('hikexpert.home', ['hikexpert.services'])
               // So title is set here:
               marker.options.title = trail.name;
               marker.options.className = 'marker';
-              console.log("This is the marker: " + marker.options.title);
+              //console.log("This is the marker: " + marker.options.title);
 
             }
             // If it's not in either array, keep it default blue icon
@@ -214,8 +214,8 @@ angular.module('hikexpert.home', ['hikexpert.services'])
     //var trailName = $(this).children().html();
     console.log("Inside click handler");
     var latlng = $(this).children().html();
-    console.log(latlng);
     var info = latlng.split(',');
+    console.log(info);
     InfoStorage.setData(info);
 
   });

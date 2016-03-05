@@ -83,14 +83,6 @@ angular.module('hikexpert.services', [])
 //TODO: service for shared trial information
 .factory('Info', function($http) {
   var getInfo = function(info) {
-    // console.log("inside factory " + info);
-    // var lat = info[0];
-    // var lng = info[1];
-    // var infoForServer = {
-    //   lat: lat,
-    //   lng: lng
-    // };
-    // console.log(infoForServer);
     return $http({
       method: 'POST',
       url: 'api/trailinfo',
@@ -107,66 +99,26 @@ angular.module('hikexpert.services', [])
 })
 
 .factory('InfoStorage', function(){
-    // var infoForServer = function(info){
-    //     var lat = info[0];
-    //     var lng = info[1];
-    //     var packagedInfo = {
-    //       lat: lat,
-    //       lng: lng
-    //     }  
-    //     return packagedInfo;
-    // };
-
-    // var holdInfo = function(packagedInfo){
-    //     return packagedInfo;
-    // };
-    //var information = infoForServer(info);
-
     var packagedInfo = {};
+
+    var clearData = function() {
+        for(var key in packagedInfo){
+          delete packagedInfo[key];
+        }
+      };
     return {
       setData: function(info) {
-        var lat = info[0];
-        var lng = info[1];
-        packagedInfo[lat] = lat;
-        packagedInfo[lng] = lng;
+        console.log("before delete :" + packagedInfo);
+        clearData();
+        console.log("after delete :" + packagedInfo);
+        packagedInfo['lat'] = info[0];
+        packagedInfo['lng'] = info[1];
+        console.log(packagedInfo);
       },
-      getData: function() {
+      getData: function() { 
         return packagedInfo;
       }
-  
+      
     }
 });
 
-
-// .factory('InfoStorage', function(){
-//     var infoForServer = function(info){
-//       var lat = info[0];
-//       var lng = info[1];
-//       var info = {
-//         lat: lat,
-//         lng: lng
-//       }
-//       return info;
-//     };
-    
-//     return {
-//       infoForServer: infoForServer,
-//       getinfo: function(){
-//         return ;
-//       }
-//     }
-// });
-// .factory('Info', function($http) {
-//   var getInfo = function() {
-//    return $http({
-//       method: 'GET',
-//       url: 'api/trailinfo'
-//     })
-//     .then(function(res) {
-//       return res.data;
-//     });
-//   };
-//   return {
-//     getInfo: getInfo
-//   }
-// });
