@@ -91,6 +91,9 @@ app.post('/api/coords', function(req, res){
         //console.log(result.status, result.headers, result.body);
         var directions;
         var description;
+        var length;
+        var city;
+        var state;
         //Info from server is an array of places
         var placesArr = result.body.places;
         if(placesArr){
@@ -112,6 +115,8 @@ app.post('/api/coords', function(req, res){
               } else {
                 description = "No description yet.";
               }  
+              city = placesArr[foundIndex].city;
+              state = placesArr[foundIndex].state;
             }
           });
 
@@ -119,7 +124,9 @@ app.post('/api/coords', function(req, res){
           var dataForUser = {
             name: name,
             directions: directions,
-            description: description
+            description: description,
+            city: city,
+            state: state,
           };
 
           res.send(dataForUser);
