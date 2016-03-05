@@ -1,6 +1,6 @@
 angular.module('hikexpert.info', ['hikexpert.services'])
 
-.controller('InfoPageController', function($scope, Info) {
+.controller('InfoPageController', function($scope, Info, InfoStorage) {
  $scope.trailInfo = {};
   //do i need this?
  //Get information on trail from API/post it
@@ -8,9 +8,11 @@ angular.module('hikexpert.info', ['hikexpert.services'])
     // var data = Info.getInfo();
     console.log("inside controller");
     // console.log(data);
-    Info.getInfo().then(function(data2) {
-      if(data2){
-        console.log("Sucessfully got data: " + data2);
+    var info = InfoStorage.getData();
+    console.log(info);
+    Info.getInfo(info).then(function(data) {
+      if(data){
+        console.log("Sucessfully got data: " + data);
       }
     }, function(error) {
         console.log("Couldn't get anything");
@@ -18,5 +20,5 @@ angular.module('hikexpert.info', ['hikexpert.services'])
     );
  };
 
- //$scope.getInfo();
+ $scope.getInfo();
 });

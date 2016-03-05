@@ -83,22 +83,18 @@ angular.module('hikexpert.services', [])
 //TODO: service for shared trial information
 .factory('Info', function($http) {
   var getInfo = function(info) {
-    //if info is not undefined....
-    //while(info){
-      console.log("inside factory " + info);
-      //console.log(Object.keys(info));
-    var lat = info[0];
-    var lng = info[1];
-    var infoForServer = {
-      lat: lat,
-      lng: lng
-    };
-    console.log(infoForServer);
-   // }
-   return $http({
+    // console.log("inside factory " + info);
+    // var lat = info[0];
+    // var lng = info[1];
+    // var infoForServer = {
+    //   lat: lat,
+    //   lng: lng
+    // };
+    // console.log(infoForServer);
+    return $http({
       method: 'POST',
       url: 'api/trailinfo',
-      data: infoForServer
+      data: info
     })
     .then(function(res) {
       console.log("still in factory");
@@ -106,11 +102,60 @@ angular.module('hikexpert.services', [])
     });
   };
   return {
-    getInfo: getInfo
-  }
+    getInfo: getInfo 
+  };
+})
+
+.factory('InfoStorage', function(){
+    // var infoForServer = function(info){
+    //     var lat = info[0];
+    //     var lng = info[1];
+    //     var packagedInfo = {
+    //       lat: lat,
+    //       lng: lng
+    //     }  
+    //     return packagedInfo;
+    // };
+
+    // var holdInfo = function(packagedInfo){
+    //     return packagedInfo;
+    // };
+    //var information = infoForServer(info);
+
+    var packagedInfo = {};
+    return {
+      setData: function(info) {
+        var lat = info[0];
+        var lng = info[1];
+        packagedInfo[lat] = lat;
+        packagedInfo[lng] = lng;
+      },
+      getData: function() {
+        return packagedInfo;
+      }
+  
+    }
 });
 
 
+// .factory('InfoStorage', function(){
+//     var infoForServer = function(info){
+//       var lat = info[0];
+//       var lng = info[1];
+//       var info = {
+//         lat: lat,
+//         lng: lng
+//       }
+//       return info;
+//     };
+    
+//     return {
+//       infoForServer: infoForServer,
+//       getinfo: function(){
+//         return ;
+//       }
+//     }
+// });
 // .factory('Info', function($http) {
 //   var getInfo = function() {
 //    return $http({

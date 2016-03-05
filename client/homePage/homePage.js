@@ -1,5 +1,5 @@
 angular.module('hikexpert.home', ['hikexpert.services'])
-.controller('HomePageController', function($scope, $rootScope, Home, Info){
+.controller('HomePageController', function($scope, $rootScope, Home, Info, InfoStorage){
   $scope.userInfo = {}; 
   $scope.loading = true;
   $scope.getting_markers = false;
@@ -216,29 +216,8 @@ angular.module('hikexpert.home', ['hikexpert.services'])
     var latlng = $(this).children().html();
     console.log(latlng);
     var info = latlng.split(',');
-    // var marker = $(this).closest('div');
-    // console.log(marker.getLatLng());
-    // console.log($(this).children().html());
-    // var curPos = this.getPopup();
-    // console.log(curPos);
-    // console.log("Current Post " + curPos);
-    // var lat = e.latlng.lat;
-    // var lng = e.latlng.lng;
-    // var info = {
-    //   trailName: trailName,
-    //   lat: lat,
-    //   lng: lng
-    // };
-    Info.getInfo(info).then(function(data2) {
-      if(data2){
-        console.log("Sucessfully got data: " + data2.name);
-        console.log(data2.directions);
-        console.log(data2.description);
-      }
-    }, function(error) {
-        console.log("Couldn't get anything");
-      }
-    );
+    InfoStorage.setData(info);
+
   });
 
   ///////////// Helpers //////////////
