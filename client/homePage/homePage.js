@@ -114,20 +114,28 @@ angular.module('hikexpert.home', ['hikexpert.services'])
             if ( $scope.userInfo.haveDone.indexOf(trail.name) > -1 ) {
               marker = L.marker(trail.coordinates, {icon: $scope.greenIcon})
                 .bindPopup('<b>'+trail.name+'</b><br /><a class="want-to">I want to hike this again<span class="hidden">'+
-                  trail.name+'</span></a><br /><a href="/#/info" class="get-info">Click for more info</a>').addTo($scope.map).openPopup();
+                  trail.name+'</span></a><br /><a href="/#/info" class="get-info">Click for more info<span class="hidden">'+
+                  trail.coordinates+'</span></a>').addTo($scope.map).openPopup();
               // L.marker will not take more than two parameters ... !?
               // So title is set here:
               marker.options.title = trail.name;
+              marker.options.className = 'marker';
+              //console.log("This is the marker: " + marker.options.className);
+              //This works:
+              //console.log(marker.getLatLng());
             } 
             // If it is in the wantToDo array, makes its class be 'have', gives it the yellowIcon, and give option 'i have hiked this'
             // If it is in BOTH arrays, this sets the icon to yellow so they can say they have hiked it (again)
             if ( $scope.userInfo.wantToDo.indexOf(trail.name) > -1 ) {
               marker = L.marker(trail.coordinates, {icon: yellowIcon})
                 .bindPopup('<b>'+trail.name+'</b><br /><a class="have">I have hiked this<span class="hidden">'+
-                  trail.name+'</span></a><br /><a href="/#/info" class="get-info">Click for more info</a>').addTo($scope.map).openPopup();
+                  trail.name+'</span></a><br /><a href="/#/info" class="get-info">Click for more info<span class="hidden">'+
+                  trail.coordinates+'</span></a>').addTo($scope.map).openPopup();
               // L.marker will not take more than two parameters ... !?
               // So title is set here:
               marker.options.title = trail.name;
+              marker.options.className = 'marker';
+              console.log("This is the marker: " + marker.options.title);
 
             }
             // If it's not in either array, keep it default blue icon
@@ -136,7 +144,10 @@ angular.module('hikexpert.home', ['hikexpert.services'])
               // This is part of an ugly jQuery hack. Hidden spans contain the name of the trail, so we can get at that later. Undoubtedly, there is a better way to do this.
                 .bindPopup('<b>'+trail.name+'</b><br /><a class="have">I have hiked this<span class="hidden">'+ 
                   trail.name+'</span></a><br /><a class="want-to">I want to hike this<span class="hidden">'+ 
-                  trail.name+'</span></a><br /><a href="/#/info" class="get-info">Click for more info</a>').addTo($scope.map);
+                  trail.name+'</span></a><br /><a href="/#/info" class="get-info">Click for more info<span class="hidden">'+
+                  trail.coordinates+'</span></a>').addTo($scope.map);
+              marker.options.className = 'marker';
+              //console.log("This is the marker: " + marker);
             }
             // Store all the markers in our own array here so we can do work on it later:
             $scope.markers.push(marker);
@@ -199,17 +210,27 @@ angular.module('hikexpert.home', ['hikexpert.services'])
     }, 400);
   });
 
-  // $('body').on('click', '.get-info', function(e){
-  //   var trailName = $(this).children().html();
-  //   var lat = e.latLng.lat;
-  //   var lng = e.latLng.lng;
-  //   var info = {
-  //     trailName: trailName,
-  //     lat: lat,
-  //     lng: lng
-  //   };
-  //   $scope.getInfo(info);
-  // });
+  $('body').on('click', '.get-info', function(e){
+    //var trailName = $(this).children().html();
+    console.log("Inside click handler");
+    var latlng = $(this).children().html();
+    console.log(latlng);
+    var info = latlng.split(',');
+    // var marker = $(this).closest('div');
+    // console.log(marker.getLatLng());
+    // console.log($(this).children().html());
+    // var curPos = this.getPopup();
+    // console.log(curPos);
+    // console.log("Current Post " + curPos);
+    // var lat = e.latlng.lat;
+    // var lng = e.latlng.lng;
+    // var info = {
+    //   trailName: trailName,
+    //   lat: lat,
+    //   lng: lng
+    // };
+    Info.getInfo(info);
+  });
 
   ///////////// Helpers //////////////
   $scope.changeColor = function (trailName, icon, intent) {

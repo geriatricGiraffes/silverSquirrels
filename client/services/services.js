@@ -82,15 +82,23 @@ angular.module('hikexpert.services', [])
 
 //TODO: service for shared trial information
 .factory('Info', function($http) {
-  var getInfo = function() {
-    var info = {
-      lat: 40.77,
-      lng: -73.9
+  var getInfo = function(info) {
+    //if info is not undefined....
+    while(info){
+      console.log("inside factory " + info);
+      console.log(Object.keys(info));
+    var lat = info["0"];
+    var lng = info["1"];
+    var infoForServer = {
+      lat: lat,
+      lng: lng
     };
+    console.log(infoForServer);
+    }
    return $http({
       method: 'POST',
       url: 'api/trailinfo',
-      data: info
+      data: infoForServer
     })
     .then(function(res) {
       return res.data;
