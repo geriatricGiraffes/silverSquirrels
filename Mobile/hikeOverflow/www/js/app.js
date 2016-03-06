@@ -1,24 +1,73 @@
-// Ionic Starter App
+angular.module('hikexpert', [
+  'hikexpert.home',
+  'hikexpert.auth',
+  'ngRoute',
+  'hikexpert.services',
+  'hikexpert.info',
+  'leaflet-directive'
+])
+.config(function($routeProvider, $httpProvider){
+  $routeProvider
+    .when('/', {
+      authenticate: true,
+      templateUrl: 'homePage/homepage.html',
+      controller: 'HomePageController'
+    })
+    .when('/signin', {
+      templateUrl: 'auth/signin.html',
+      controller: 'AuthController'
+    })
+    .when('/user', {
+      authenticate: true,
+      templateUrl: 'user/user.html',
+      controller: 'HomePageController'
+    })
+    .when('/signup', {
+      templateUrl: 'auth/signup.html',
+      controller: 'AuthController'
+    })
+    .when('/info', {
+      templateUrl: 'infoPage/infoPage.html',
+      controller: 'InfoPageController'
+    })
+    .when('/aboutTeam', {
+      templateUrl: 'about/aboutTeam.html'
+    });
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+    // We add our $httpInterceptor into the array
+    // of interceptors. Think of it like middleware for your ajax calls
+    $httpProvider.interceptors.push('AttachTokens');
+})
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-
-      // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
-      // a much nicer keyboard experience.
-      cordova.plugins.Keyboard.disableScroll(true);
+.factory('AttachTokens', function ($window) {
+  // this is an $httpInterceptor
+  // its job is to stop all out going request
+  // then look in local storage and find the user's token
+  // then add it to the header so the server can validate the request
+  var attach = {
+    request: function (object) {
+      var jwt = $window.localStorage.getItem('com.hikexpert');
+      if (jwt) {
+        object.headers['x-access-token'] = jwt;
+      }
+      object.headers['Allow-Control-Allow-Origin'] = '*';
+      return object;
     }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
+  };
+  return attach;
+})
+
+.run(function ($rootScope, $location, Auth) {
+  // here inside the run phase of angular, our services and controllers
+  // have just been registered and our app is ready
+  // however, we want to make sure the user is authorized
+  // we listen for when angular is trying to change routes
+  // when it does change routes, we then look for the token in localstorage
+  // and send that token to the server to see if it is a real user or hasn't expired
+  // if it's not valid, we then redirect back to signin/signup
+  $rootScope.$on('$routeChangeStart', function (evt, next, current) {
+    if (next.$$route && next.$$route.authenticate && !Auth.isAuth()) {
+      $location.path('/signin');
     }
   });
-})
+});
