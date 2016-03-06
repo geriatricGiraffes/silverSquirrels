@@ -13,6 +13,7 @@ if(process.env.NODE_ENV !== 'production'){
 }
 
 var express = require('express');
+var cors = require('cors');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var path = require('path');
@@ -20,6 +21,8 @@ var unirest = require('unirest');
 var userControllers = require('./controllers/userControllers.js');
 
 var app = express();
+
+app.use(cors());
 
 // create and connect to database
 var mongoose = require('mongoose');
@@ -37,7 +40,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 4000;
+var port = process.env.PORT || 8100;
 
 app.use(express.static(path.join(__dirname, '../client')));
 
@@ -76,7 +79,7 @@ app.post('/api/coords', function(req, res){
     } else {
       res.sendStatus(404);
     }
-  });  
+  });
 });
 
  app.post('/api/trailinfo', function(req, res) {
@@ -97,7 +100,7 @@ app.post('/api/coords', function(req, res){
         var placesArr = result.body.places;
         if(placesArr){
           // First, loop through places and find index of the one there the name matches the trail name
-          // Save index, and continue to get all the info you want from the API 
+          // Save index, and continue to get all the info you want from the API
           var foundIndex;
           placesArr.forEach(function(place, i){
             if(name === placesArr[i].name){
@@ -113,7 +116,7 @@ app.post('/api/coords', function(req, res){
                 description = result.body.places[foundIndex].description;
               } else {
                 description = "No description yet.";
-              }  
+              }
               city = placesArr[foundIndex].city;
               state = placesArr[foundIndex].state;
             }
@@ -129,7 +132,7 @@ app.post('/api/coords', function(req, res){
           };
 
           res.send(dataForUser);
-  
+
         } else {
           console.log("You've hit an error when trying to send data back from API.");
           res.sendStatus(404)
