@@ -1,11 +1,11 @@
-angular.module('hikexpert.services', [])
+angular.module('hikexpert.services', ['ionic'])
 
 .factory('Home', function($http){
-
+   var baseUrl = 'http://localhost:8100';
   var getCoords = function(userInfo){
     return $http({
       method: 'POST',
-      url: 'api/coords',
+      url: '/api/coords',
       data: userInfo
     }).then(function(resp){
       return resp.data;
@@ -41,6 +41,7 @@ angular.module('hikexpert.services', [])
 })
 
 .factory('Auth', function($http, $location, $window) {
+    var baseUrl = 'http://localhost:8100';
   var signin = function(user) {
     return $http({
       method: 'POST',
@@ -51,7 +52,7 @@ angular.module('hikexpert.services', [])
       return resp.data.token;
     });
   };
-  
+
   var signup = function(user) {
     return $http({
       method: 'POST',
@@ -62,16 +63,16 @@ angular.module('hikexpert.services', [])
       return resp.data.token;
     });
   };
-  
+
   var isAuth = function() {
     return !!$window.localStorage.getItem('com.hikexpert');
   };
-  
+
   var signout = function() {
     $window.localStorage.removeItem('com.hikexpert');
     $location.path('/signin');
   };
-  
+
   return {
     signin : signin,
     signup : signup,
@@ -94,7 +95,7 @@ angular.module('hikexpert.services', [])
   };
 
   return {
-    getInfo: getInfo 
+    getInfo: getInfo
   };
 })
 
@@ -108,9 +109,9 @@ angular.module('hikexpert.services', [])
         packagedInfo['lng'] = info[1];
         packagedInfo['name'] = info[2]
       },
-      getData: function() { 
+      getData: function() {
         return packagedInfo;
-      }    
+      }
     }
 });
 

@@ -1,11 +1,12 @@
 angular.module('hikexpert', [
-  'ionic',
   'hikexpert.home',
   'hikexpert.auth',
   'ngRoute',
   'hikexpert.services',
   'hikexpert.info',
-  'leaflet-directive'
+  'leaflet-directive',
+  'ionic',
+  'ngCordova'
 ])
 .config(function($routeProvider, $httpProvider){
   $routeProvider
@@ -28,7 +29,7 @@ angular.module('hikexpert', [
       controller: 'AuthController'
     })
     .when('/info', {
-      templateUrl: 'js/nfoPage/infoPage.html',
+      templateUrl: 'js/infoPage/infoPage.html',
       controller: 'InfoPageController'
     })
     .when('/aboutTeam', {
@@ -38,6 +39,18 @@ angular.module('hikexpert', [
     // We add our $httpInterceptor into the array
     // of interceptors. Think of it like middleware for your ajax calls
     $httpProvider.interceptors.push('AttachTokens');
+    $httpProvider.interceptors.push(function(){
+      return {
+        request: function(request) {
+          // Transform ALL $http calls to that requests that go to '/'
+          // instead go to a different origin, in this case localhost:3000
+          if (request.url.charAt(0) === '/'){
+            request.url = 'http://localhost:8100' + request.url;
+          }
+          return request;
+        }
+      };
+    });
 })
 
 .factory('AttachTokens', function ($window) {
