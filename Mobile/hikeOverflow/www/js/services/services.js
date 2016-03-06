@@ -5,7 +5,7 @@ angular.module('hikexpert.services', ['ionic'])
   var getCoords = function(userInfo){
     return $http({
       method: 'POST',
-      url: 'api/coords',
+      url: '/api/coords',
       data: userInfo
     }).then(function(resp){
       return resp.data;
