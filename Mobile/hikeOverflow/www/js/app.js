@@ -1,4 +1,5 @@
 angular.module('hikexpert', [
+  'ionic',
   'hikexpert.home',
   'hikexpert.auth',
   'ngRoute',
@@ -10,28 +11,28 @@ angular.module('hikexpert', [
   $routeProvider
     .when('/', {
       authenticate: true,
-      templateUrl: 'homePage/homepage.html',
+      templateUrl: 'js/homePage/homepage.html',
       controller: 'HomePageController'
     })
     .when('/signin', {
-      templateUrl: 'auth/signin.html',
+      templateUrl: 'js/auth/signin.html',
       controller: 'AuthController'
     })
     .when('/user', {
       authenticate: true,
-      templateUrl: 'user/user.html',
+      templateUrl: 'js/user/user.html',
       controller: 'HomePageController'
     })
     .when('/signup', {
-      templateUrl: 'auth/signup.html',
+      templateUrl: 'js/auth/signup.html',
       controller: 'AuthController'
     })
     .when('/info', {
-      templateUrl: 'infoPage/infoPage.html',
+      templateUrl: 'js/nfoPage/infoPage.html',
       controller: 'InfoPageController'
     })
     .when('/aboutTeam', {
-      templateUrl: 'about/aboutTeam.html'
+      templateUrl: 'js/about/aboutTeam.html'
     });
 
     // We add our $httpInterceptor into the array
