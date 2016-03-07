@@ -3,7 +3,7 @@
   <div >
     <form name="signinForm" ng-submit='signin()' class="row">
       <label for="inputUsername" class="sr-only">Username</label>
-      <input type='text' id="inputUsername" class="form-control" ng-model='user.username' name="signinUser" placeholder="Enter your username" required ng-class="{'error': signinUser.$invalid && signinUser.$dirty}"/>
+      <input type='text' id="inputUsername" class="form-control" ng-model='user.username' name="signinUser" placeholder="Enter your username" required ng-class="{'error': signinUser.$invalid && signinUser.$dirty}"/><br /><br />
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" ng-model='user.password' name="signinPassword" placeholder="Enter your password" required ng-class="{'error': signinPassword.$invalid && signinForm.$dirty}"/>
       <button class="btn btn-lg btn-success btn-block" type="submit">Sign In</button>
@@ -12,7 +12,7 @@
       <a href="#/signup">Don't have an account? <strong>Signup</strong>!</a>
     </div>
   </div>
-  
+
   <div class="alert-danger" ng-if='signinForm.signinUser.$error.required && signinForm.$dirty' class='message'>
     <h2>Username required</h2>
   </div>

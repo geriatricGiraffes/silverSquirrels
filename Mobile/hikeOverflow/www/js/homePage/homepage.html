@@ -1,9 +1,6 @@
 <div class='container fixed-homepage'>
-  <div class="page-header">
-    <h1 test>Hello {{userInfo.username}}</h1>
-  </div>
-  <div class="row well">
-    <div class="col-sm-6">
+  <!-- <div class="row well"> -->
+    <!-- <div class="col-sm-6"> -->
       <p class="lead">See trails near you! <small>Enter a radius:</small></p>
       <select class="form-control" name="radius" ng-model="userInfo.radius" ng-change="getCoords(userInfo)" >
         <!-- <option selected disabled>Select a radius</option> -->
@@ -12,12 +9,12 @@
         <option value="50">50 miles</option>
         <option value="100">100 miles</option>
       </select>
-    </div>
-  </div>
+    <!-- </div> -->
+  <!-- </div> -->
 
   <br>
 
-  <div class='gif-container'>
+  <!-- <div class='gif-container'>
     <div ng-if="loading">
       <p class='loading'>Getting an aerial view...</p>
       <span class="glyphicon glyphicon-plane loading-icon"></span>
@@ -26,25 +23,21 @@
       <span class='getting_markers'>Unpacking and placing markers...</span>
       <span class="glyphicon glyphicon-map-marker loading-icon"></span>
     </div>
-  </div>
+  </div> -->
 
   <!-- This is where the leaflet map renders: -->
 <div data-tap-disabled="true"> <div id="map"></div> </div>
-  <hr>
-  <div class="col-sm-6 well">
+  <!-- <div class="col-sm-6 well">
     <h3> Trails I Have Done: </h3>
     <div ng-repeat='trailName in userInfo.haveDone track by $index'>
      <p>{{trailName}}</p>
     </div>
   </div>
-
-   <div class="col-sm-6 well">
+ -->
+   <!-- <div class="col-sm-6 well">
      <h3> Trails I Want To Do: </h3>
      <div ng-repeat='trailName in userInfo.wantToDo track by $index'>
        <p>{{trailName}} <button class="btn btn-success did-it-button" ng-click='moveTrail(this.trailName, "/moveTrails"); changeColor(this.trailName, greenIcon, "did it")'>Did it!</button></p>
      </div>
-   </div>
+   </div> -->
  </div>
-
-
-

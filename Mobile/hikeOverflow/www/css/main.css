@@ -1,49 +1,63 @@
-#map{
-  height: 400px;
-  width: 95%;
-  margin: 30px auto;
-}
-
 body {
-  background-color: #ebe9e9;
-  display: flex;
-  min-height: 100vh;
+  background-color: #fff;
+  /*display: flex;*/
+  /*min-height: 100vh;*/
   flex-direction: column;
+
+  font-family: Garamond, sans-serif;
 }
 .main {
-  flex: 1 0 auto;
+  /*flex: 1 0 auto;*/
 }
 
 a {
   cursor: pointer;
 }
+
+#map{
+  height: 400px;
+  width: 420px;
+  margin: 0 0 0 -15px;
+}
+
 .navbar {
+  padding: 20px 0 10px 0;
   border-radius: 0px;
 }
 .navbar, footer {
-  background: #034732;
+  background: #003300;
+}
+
+.navbar a {
+  color: #fff;
+}
+
+.navbar-toggle {
+  margin: 10px 15px 0 0;
+  background-color: #fff;
 }
 .nav-tree {
-  color: #c6c013;
+  color: #fff;
   position: absolute;
   top: 50%;
   transform: translate(0, -50%)
 }
 .home-link {
-  font-family: 'Lato', sans-serif;  
+  font-family: Helvetica, sans-serif;
+  font-weight: 300;
   font-size: 36px;
-  color: #c6c013;
+  color: #fff;
 }
 .home-link:hover{
-  color: #ebe9e9;
+  color: #fff;
 }
 .profile-menu {
-  color: #c6c013;
+  color: #fff;
   font-size: 20px;
 }
 .nav > li > a:hover, .nav > li > a:focus, .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   color: #ebe9e9;
-  background: #034732;
+  background: #003300;
 }
 
 .page-footer{
@@ -70,13 +84,13 @@ a {
 }
 
 .footer-basic-centered .footer-company-motto{
-  color:  #f0f0c9;
+  color:  #fff;
   font-size: 24px;
   margin: 0;
 }
 
 .footer-basic-centered .footer-company-name{
-  color:  #f0f0c9;
+  color:  #fff;
   font-size: 14px;
   margin: 0;
 }
@@ -84,7 +98,7 @@ a {
 .footer-basic-centered .footer-links{
   list-style: none;
   font-weight: bold;
-  color:  #f0f0c9;
+  color:  #fff;
   padding: 35px 0 23px;
   margin: 0;
 }
@@ -96,10 +110,10 @@ a {
 }
 .loading, .getting_markers, .loading-icon {
   font-size: 20px;
-  color: #034732;
+  color: #003300;
 }
 /*.titles, .person-name {
-  color: #034732;
+  color: #003300;
 }*/
 
 /* If you don't want the footer to be responsive, remove these media queries */
@@ -133,7 +147,7 @@ a {
   text-align: center;
 }
 .glyphicon {
-  font-size: 35px !important; 
+  font-size: 35px !important;
 }
 
 .did-it-button {
@@ -152,7 +166,7 @@ a {
   margin-bottom: 10px;
 }
 .form-signin-heading, .form-signup-heading {
-  color: #034732;
+  color: #003300;
 }
 .form-signin .checkbox, .form-signup .checkbox {
   font-weight: normal;
@@ -184,15 +198,15 @@ a {
   margin-bottom: 5px;
 }
 .go-to-signup > a, .go-to-signin > a {
-  color: #034732;
+  color: #003300;
 }
 .btn {
-  background-color: #008148;
+  background-color: #003300;
   color: #ebe9e9;
 }
 .btn:hover {
-  background-color: #034732;
-  color: #f0f0c9;
+  background-color: #003300;
+  color: #fff;
 }
 
 .person-img {
@@ -201,6 +215,7 @@ a {
 
 div.fixed-homepage {
   height: 1070px;
+  background-color: #fff;
 }
 div.fixed-user {
   height: 800px;
@@ -209,5 +224,3 @@ div.fixed-user {
 div.auth {
   padding: 80px;
 }
-
-
