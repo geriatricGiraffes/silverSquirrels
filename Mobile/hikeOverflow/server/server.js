@@ -146,7 +146,7 @@ app.post('/api/coords', function(req, res){
 
         } else {
           console.log("You've hit an error when trying to send data back from API.");
-          res.sendStatus(404)
+          res.sendStatus(404);
         }
       });
  });

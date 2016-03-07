@@ -85,7 +85,7 @@ angular.module('hikexpert.services', ['ionic'])
   var getInfo = function(info) {
     return $http({
       method: 'POST',
-      url: 'api/trailinfo',
+      url: '/api/trailinfo',
       data: info
     })
 
@@ -107,11 +107,11 @@ angular.module('hikexpert.services', ['ionic'])
       setData: function(info) {
         packagedInfo['lat'] = info[0];
         packagedInfo['lng'] = info[1];
-        packagedInfo['name'] = info[2]
+        packagedInfo['name'] = info[2];
       },
       getData: function() {
         return packagedInfo;
       }
-    }
+    };
 });
 
