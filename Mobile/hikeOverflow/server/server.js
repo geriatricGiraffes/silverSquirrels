@@ -93,6 +93,64 @@ app.post('/api/coords', function(req, res){
   });
 });
 
+ app.post('/api/trailinfo', function(req, res) {
+    var lat = req.body.lat;
+    var lng = req.body.lng;
+    var name = req.body.name;
+    unirest.get("https://trailapi-trailapi.p.mashape.com/?lat="+lat+"&limit=10&lon="+lng+"&q[activities_activity_type_name_eq]=hiking")
+      .header("X-Mashape-Key", process.env.TRAIL_API_KEY)
+      .header("Accept", "text/plain")
+      .end(function (result) {
+        //console.log(result.status, result.headers, result.body);
+        var directions;
+        var description;
+        var length;
+        var city;
+        var state;
+        //Info from server is an array of places
+        var placesArr = result.body.places;
+        if(placesArr){
+          // First, loop through places and find index of the one there the name matches the trail name
+          // Save index, and continue to get all the info you want from the API
+          var foundIndex;
+          placesArr.forEach(function(place, i){
+            if(name === placesArr[i].name){
+              foundIndex = i;
+              // Directions
+              if(placesArr[foundIndex].directions){
+                directions = result.body.places[foundIndex].directions;
+              } else {
+                directions = "No directions yet.";
+              }
+              // Description
+              if(placesArr[foundIndex].description){
+                description = result.body.places[foundIndex].description;
+              } else {
+                description = "No description yet.";
+              }
+              city = placesArr[foundIndex].city;
+              state = placesArr[foundIndex].state;
+            }
+          });
+
+          // Data packaged for user
+          var dataForUser = {
+            name: name,
+            directions: directions,
+            description: description,
+            city: city,
+            state: state,
+          };
+
+          res.send(dataForUser);
+
+        } else {
+          console.log("You've hit an error when trying to send data back from API.");
+          res.sendStatus(404)
+        }
+      });
+ });
+
 exports.port = port;
 
 app.listen(port);
